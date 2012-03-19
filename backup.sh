@@ -111,7 +111,7 @@ function sync2remote {
 	PASSFILE=$1
 	SOURCE=$2
 	TARGET=$3
-	$PARAMS=$4
+	PARAMS=$4
 	local_log "syncing $SOURCE to $TARGET"
 	execute "$RSYNC -avuz $PARAMS --delete --delete-excluded --password-file=$PASSFILE $SOURCE $TARGET" 0
 	local_log "sync of $SOURCE done"
