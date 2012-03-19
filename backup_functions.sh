@@ -29,12 +29,13 @@ function execute_out {
         fi
 }
 
-function backup_database_pg { # db-name, username - use .pgpass
+function backup_database_pg { # db-name, username, subfolder - use .pgpass
 	DB=$1
 	USERNAME=$2
+	SUBFOLDER=$3
 
-	TARGET="$BKP/${DB}.sql.`date +%d`"
-	LINK="$BKP/current_${DB}.gz"
+	TARGET="$BKP/$SUBFOLDER/${DB}.sql.`date +%d`"
+	LINK="$BKP/$SUBFOLDER/current_${DB}.gz"
 
 	local_log "dumping pg database $DB to $TARGET as user $USERNAME"
 	execute_out "$PGDUMP -U $USERNAME -w $DB" $TARGET 0
