@@ -31,6 +31,7 @@ if [ "$DEBUG" == 'debug' ]; then
 	echo "# Config after loading $CONFIG"
 	echo "############################################"
 	echo "# BKP: $BKP"
+	echo "# SCRIPTDIR: $SCRIPTDIR"
 	echo "# LOG: $LOG"
 	echo "# ERR: $ERR"
 	echo "# PGDUMP: $PGDUMP"
