@@ -11,6 +11,7 @@ BKP=/home/backup
 SCRIPTDIR=$BKP
 LOG=$BKP/backup_log.out
 ERR=$BKP/backup_log.err
+SUC=$BKP/backup_log.suc
 
 PGDUMP=/usr/bin/pg_dump
 MYDUMP=/usr/bin/mysqldump
@@ -70,5 +71,6 @@ local_log "executed $LOCALSCR"
 ######### SAMPLE backup_local.sh END #########
 
 local_log 'done'
+local_log "backup successful" >> $SUC
 exit 0
 
