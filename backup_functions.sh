@@ -121,7 +121,7 @@ function tar_target {
         execute "tar -czf $TARGET $SRC" 0
 	local_log "$TARGET created"
 
-        execute "cd $OLDDIR"
+        execute "cd $OLDDIR" 0
 
         local_log "taring $SRC done"
 }
