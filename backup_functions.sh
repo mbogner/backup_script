@@ -109,5 +109,3 @@ function sync2remote {
 	local_log "sync of $SOURCE done"
 }
 
-echo "sourced file"
-

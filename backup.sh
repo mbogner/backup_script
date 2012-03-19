@@ -5,6 +5,7 @@
 #####################################################################
 
 echo "loading defaults from $0"
+DEBUG=$1
 
 BKP=/home/backup
 LOG=$BKP/backup_log.out
@@ -19,19 +20,37 @@ CONFIG="/etc/backup.conf"
 # allow to override defaults
 echo "loading config from $CONFIG"
 source $CONFIG
-echo "loaded config"
+echo "loaded $CONFIG"
+
+FUNCTIONS="$BKP/backup_functions.sh"
+LOCALSCR="$BKP/backup_local.sh"
+
+if [ "$DEBUG" == 'debug' ]; then
+	echo "############################################"
+	echo "# Config after loading $CONFIG"
+	echo "############################################"
+	echo "# BKP: $BKP"
+	echo "# LOG: $LOG"
+	echo "# ERR: $ERR"
+	echo "# PGDUMP: $PGDUMP"
+	echo "# MYDUMP: $MYDUMP"
+	echo "# RSYNC: $RSYNC"
+	echo "#"
+	echo "# FUNCTIONS: $FUNCTIONS"
+	echo "# LOCALSCR: $LOCALSCR"
+	echo "############################################"
+	exit 1
+fi
 
 # load functions
-FUNCTIONS="$BKP/backup_functions.sh"
 echo "loading functions from $FUNCTIONS"
 source $FUNCTIONS
-local_log "loaded functions"
+local_log "loaded $FUNCTIONS"
 
 # execute local backup script
-LOCALSCR="$BKP/backup_local.sh"
 local_log "executing local script $LOCALSCR"
 source $LOCALSCR
-local_log "executed local script"
+local_log "executed $LOCALSCR"
 
 ########### SAMPLE backup_local.sh ###########
 #local_log "postgresql section"
