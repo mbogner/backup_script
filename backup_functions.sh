@@ -109,3 +109,19 @@ function sync2remote {
 	local_log "sync of $SOURCE done"
 }
 
+function tar_target {
+        SRC="$BKP/$1"
+        TARGET="$2/$1.tgz"
+
+        OLDDIR=`pwd`
+        execute "cd $BKP" 0
+
+        local_log "taring $SRC to $TARGET"
+        execute "rm -f $TARGET" 0
+        execute "tar -czf $TARGET $SRC" 0
+	local_log "$TARGET created"
+
+        execute "cd $OLDDIR"
+
+        local_log "taring $SRC done"
+}
