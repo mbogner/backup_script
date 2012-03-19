@@ -2,4 +2,4 @@ This project simply provides some functions to backup databases, files and folde
 
 For simple configuration all functions are located in a separated backup_functions.sh and a configuration file is loaded from /etc/backup.conf. This file overrides default parameters in backup.sh. 
 
-For local backup you should use backup_local.sh on you machine. A sample is found in backup.sh. You should not change backup.sh or backup_functions.sh locally to be able to update the script. backup.conf and backup_local.sh are in .gitignore so you are able to place all files in the same folder as the script and just place a softlink to /etc for backup.conf.
+For local backup you should use backup_local.sh on your machine placed in the scriptdir. A sample is found in backup.sh. You should not change backup.sh or backup_functions.sh locally to be able to update the scripts from central. backup.conf and backup_local.sh are in .gitignore so you are able to place all files in the same folder as the script.
