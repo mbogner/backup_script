@@ -8,11 +8,15 @@ function execute {
 	COMMAND=$1
 	EXPECTED=$2
 	local_log "executing: $COMMAND"
-	`$COMMAND >> $LOG 2>> $ERR`
-	RES=$?
-	if [ $RES -ne $EXPECTED ]; then
-		echo "command gave result $RES - expected $EXPECTED"
-		exit 1
+	if [ "$DEBUG" == 'debug' ]; then
+		local_log "skipped as we are debugging"
+	else
+		`$COMMAND >> $LOG 2>> $ERR`
+		RES=$?
+		if [ $RES -ne $EXPECTED ]; then
+			echo "command gave result $RES - expected $EXPECTED"
+			exit 1
+		fi
 	fi
 }
 

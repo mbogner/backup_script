@@ -43,7 +43,6 @@ if [ "$DEBUG" == 'debug' ]; then
 	echo "# FUNCTIONS: $FUNCTIONS"
 	echo "# LOCALSCR: $LOCALSCR"
 	echo "############################################"
-	exit 1
 fi
 
 # load functions
