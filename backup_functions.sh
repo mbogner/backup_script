@@ -137,6 +137,11 @@ function tar_target {
 
 function cleanup_last_month {
 	MONTH=`date +%m`
+	if [ `date +%d` -ne 1 ]; then
+		local_log "Only starting cleanup on first day of month"
+		return
+	fi
+
 	local_log "Cleaning up last month - actual $MONTH"
 
 	DATA[1]="" #dez=31
