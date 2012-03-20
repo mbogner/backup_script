@@ -35,6 +35,7 @@ if [ "$DEBUG" == 'debug' ]; then
 	echo "# SCRIPTDIR: $SCRIPTDIR"
 	echo "# LOG: $LOG"
 	echo "# ERR: $ERR"
+	echo "# SUC: $SUC"
 	echo "# PGDUMP: $PGDUMP"
 	echo "# MYDUMP: $MYDUMP"
 	echo "# RSYNC: $RSYNC"
