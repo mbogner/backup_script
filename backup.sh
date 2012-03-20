@@ -68,7 +68,9 @@ local_log "executed $LOCALSCR"
 #backup_folder home /home/
 #
 #local_log "sync section"
-#sync2remote /etc/backup.pass /home/backup/etc/ "user@remote:./etc/"
+#sync2remote /etc/backup.pass $BKP/etc/ "user@remote:./etc/"
+#
+#cleanup_last_month dsubfolder/dbname.sql.%DAY%.gz home.%DAY%
 ######### SAMPLE backup_local.sh END #########
 
 local_log 'done'

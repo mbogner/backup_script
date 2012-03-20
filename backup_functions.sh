@@ -126,3 +126,47 @@ function tar_target {
 
         local_log "taring $SRC done"
 }
+
+function cleanup_last_month {
+	MONTH=`date +%m`
+	local_log "Cleaning up last month - actual $MONTH"
+
+	DATA[1]="" #dez=31
+	DATA[2]="" #jan=31
+	if [ $MONTH -eq 3 ]; then #feb=28
+		YEAR=`date +%Y`
+		LEAP=`expr $YEAR % 4`
+		local_log "check for leap year (0=true): $LEAP"
+		if [ $LEAP -eq 0 ]; then
+			local_log "we have a leap year"
+			DATA[3]="30 31"
+		else
+			local_log "no leap year"
+			DATA[3]="29 30 31"
+		fi
+	fi
+	DATA[4]="" #mar=31
+	DATA[5]="31" #apr=30
+	DATA[6]="" #mai=31
+	DATA[7]="31" #jun=30
+	DATA[8]="" #jul=31
+	DATA[9]="" #aug=31
+	DATA[10]="31" #sep=30
+	DATA[11]="" #oct=31
+	DATA[12]="31" #nov=30
+
+	TOCLEAN=${DATA[$MONTH]}
+	local_log "days from last month to remove: $TOCLEAN"
+	for day in $TOCLEAN; do
+		if [ $# -lt 1 ]; then
+			local_log "WARNING: no folders given for cleanup"
+			return
+		else
+			for arg in $*; do
+				FILE=$BKP/${arg/\%DAY\%/$day}
+				local_log "cleanup day $day with pattern $arg => $FILE"
+				execute "rm -rf $FILE" 0
+			done
+		fi
+	done
+}
