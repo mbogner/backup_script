@@ -25,12 +25,16 @@ function execute_out {
 	OUTPUT=$2
         EXPECTED=$3
         local_log "executing: $COMMAND and writing output to $OUTPUT"
-        `$COMMAND > $OUTPUT 2>> $ERR`
-        RES=$?
-        if [ $RES -ne $EXPECTED ]; then
-                echo "command gave result $RES - expected $EXPECTED"
-                exit 1
-        fi
+	if [ "$DEBUG" == 'debug' ]; then
+		local_log "skipped as we are debugging"
+	else
+	        `$COMMAND > $OUTPUT 2>> $ERR`
+	        RES=$?
+        	if [ $RES -ne $EXPECTED ]; then
+                	echo "command gave result $RES - expected $EXPECTED"
+	                exit 1
+        	fi
+	fi
 }
 
 function backup_database_pg { # db-name, username, subfolder - use .pgpass
