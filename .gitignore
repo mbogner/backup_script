@@ -2,3 +2,4 @@ backup.conf
 backup_local.sh
 update_all.sh
 backup_log.*
+*.swp
