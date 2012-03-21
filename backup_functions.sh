@@ -287,7 +287,7 @@ function sync2remote {
 function sync2remote_rotated {
 	local_usage $# 4 "sync2remote_rotated <kepp-files> <password-file> <source> <target> (<params>)"
 	ACTUAL=`expr $DS1970 % $1`
-	sync2remote $2 "$3.$ACTUAL/" $3 $4 $5
+	sync2remote $2 "$3.$ACTUAL/" $4 $5
 }
 
 #
