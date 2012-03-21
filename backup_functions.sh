@@ -281,6 +281,12 @@ function sync2remote {
 	local_log "sync of $SOURCE done"
 }
 
+function sync2remote_rotated {
+	local_usage $# 4 "sync2remote_rotated <kepp-files> <password-file> <source> <target> (<params>)"
+	ACTUAL=`expr $DS1970 % $1`
+	sync2remote "$2.$ACTUAL" $3 $4 $5
+}
+
 #
 # create a tgz file from a folder in BKP and place it in the target folder.
 # the target file is named as the source folder with .tgz
@@ -306,6 +312,12 @@ function tar_target {
         execute "cd $OLDDIR" 0
 
         local_log "taring $SRC done"
+}
+
+function tar_target_rotated {
+	local_usage $# 3 "tar_target_rotated <keep-files> <src> <target-dir>"
+	ACTUAL=`expr $DS1970 % $1`
+	tar_target "$2.$ACTUAL" $3
 }
 
 #
