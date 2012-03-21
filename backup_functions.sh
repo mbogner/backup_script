@@ -300,8 +300,8 @@ function sync2remote_rotated {
 #	folder to place the new file to
 #
 function tar_target {
-	local_usage $# 2 "tar_target <src> <target-dir>"
-        SRC="$BKP/$1"
+	local_usage $# 2 "tar_target <src> <target-dir> (<src-addon>)"
+        SRC="$BKP/$1$3"
         TARGET="$2/$1.tgz"
 
         OLDDIR=`pwd`
@@ -317,10 +317,13 @@ function tar_target {
         local_log "taring $SRC done"
 }
 
+#
+# wrapper to tar rotated folders to a target without rotation
+#
 function tar_target_rotated {
 	local_usage $# 3 "tar_target_rotated <keep-files> <src> <target-dir>"
 	ACTUAL=`expr $DS1970 % $1`
-	tar_target "$2.$ACTUAL" $3
+	tar_target $2 $3 ".$ACTUAL"
 }
 
 #
