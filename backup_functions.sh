@@ -271,7 +271,7 @@ function empty_folder {
 #	special params for rsync like extra excludes
 #
 function sync2remote {
-	local_usage $# 4 "sync2remote <password-file> <source> <target> (<params>)"
+	local_usage $# 3 "sync2remote <password-file> <source> <target> (<params>)"
 	PASSFILE=$1
 	SOURCE=$2
 	TARGET=$3
