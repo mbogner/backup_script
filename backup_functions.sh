@@ -281,10 +281,13 @@ function sync2remote {
 	local_log "sync of $SOURCE done"
 }
 
+#
+# wrapper for rotated backups. do NOT use a / at the end of source as this is added automatically
+#
 function sync2remote_rotated {
 	local_usage $# 4 "sync2remote_rotated <kepp-files> <password-file> <source> <target> (<params>)"
 	ACTUAL=`expr $DS1970 % $1`
-	sync2remote "$2.$ACTUAL" $3 $4 $5
+	sync2remote $2 "$3.$ACTUAL/" $3 $4 $5
 }
 
 #
