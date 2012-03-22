@@ -61,7 +61,8 @@ function execute {
 		$($COMMAND >> $OUTPUT 2>> $ERR)
 		RES=$?
 		if [ $RES -ne $EXPECTED ]; then
-			echo "command gave result $RES - expected $EXPECTED"
+			local_log "command gave result $RES - expected $EXPECTED"
+			local_log "backup failed - see $LOG" >> $OVERVIEW
 			exit 1
 		fi
 	fi

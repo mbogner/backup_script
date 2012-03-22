@@ -18,6 +18,7 @@ MYDUMP=/usr/bin/mysqldump
 RSYNC=/usr/bin/rsync
 
 CONFIG="/etc/backup.conf"
+OVERVIEW="/var/log/backup.log"
 
 # allow to override defaults
 echo "loading config from $CONFIG"
@@ -50,6 +51,8 @@ echo "loading functions from $FUNCTIONS"
 source $FUNCTIONS
 local_log "loaded $FUNCTIONS"
 
+local_log "started backup" >> $OVERVIEW
+
 # execute local backup script
 local_log "executing local script $LOCALSCR"
 source $LOCALSCR
@@ -73,6 +76,7 @@ local_log "executed $LOCALSCR"
 ######### SAMPLE backup_local.sh END #########
 
 local_log 'done'
-local_log "backup successful" >> $SUC
+execute "touch $SUC" 0
+local_log "successful" >> $OVERVIEW
 exit 0
 
