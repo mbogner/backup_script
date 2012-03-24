@@ -3,6 +3,7 @@
 # some global variables that are needed in the functions below
 MONTH=`date +%m`
 DOM=`date +%d`
+DOW=`date +%w`
 DS1970=$(( $(date +%s) / 3600 / 24 ))
 
 #
