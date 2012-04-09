@@ -229,16 +229,9 @@ function backup_folder_full {
 	local_log "updating local copy nr $ACTUAL (day $DS1970) from $FOLDER to $BKP/$TARGET and creating link $LINK"
 	create_folder_ifneeded $TARGET
 
-	local LINK_DEST1=`expr $NUMBER + $ACTUAL - 1`
-	local LINK_DEST1=`expr $LINK_DEST1 % $NUMBER`
-	local LINK_DEST1="$BKP/$NAME.$LINK_DEST1"
+	local LINK_DEST=$(readlink $LINK)
 
-	local LINK_DEST2=`expr $NUMBER + $ACTUAL - 2`
-        local LINK_DEST2=`expr $LINK_DEST2 % $NUMBER`
-	local LINK_DEST2="$BKP/$NAME.$LINK_DEST2"
-	local_log "linking to $LINK_DEST1 and $LINK_DEST2"
-
-	execute "$RSYNC -avu $PARAMS --link-dest=$LINK_DEST1 --link-dest=$LINK_DEST2 --delete --delete-excluded $FOLDER $BKP/$TARGET/" 0
+	execute "$RSYNC -avu $PARAMS --link-dest=$LINK_DEST --delete --delete-excluded $FOLDER $BKP/$TARGET/" 0
 
 	recreate_link $LINK "$BKP/$TARGET"
 	local_log "full backup folder $NAME done"
