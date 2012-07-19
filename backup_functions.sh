@@ -230,8 +230,12 @@ function backup_folder_full {
 	create_folder_ifneeded $TARGET
 
 	local LINK_DEST=$(readlink $LINK)
+	local LINK_DEST_VAL="--link-dest=$LINK_DEST"
+	if [ $LINK_DEST -eq ]; then
+		$LINK_DEST_VAL=""
+	fi
 
-	execute "$RSYNC -avu $PARAMS --link-dest=$LINK_DEST --delete --delete-excluded $FOLDER $BKP/$TARGET/" 0
+	execute "$RSYNC -avu $PARAMS $LINK_DEST_VAL --delete --delete-excluded $FOLDER $BKP/$TARGET/" 0
 
 	recreate_link $LINK "$BKP/$TARGET"
 	local_log "full backup folder $NAME done"
