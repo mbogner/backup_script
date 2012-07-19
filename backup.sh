@@ -8,10 +8,6 @@ echo "loading defaults from $0"
 DEBUG=$1
 
 BKP=/home/backup
-SCRIPTDIR=$BKP
-LOG=$BKP/backup_log.out
-ERR=$BKP/backup_log.err
-SUC=$BKP/backup_log.suc
 
 PGDUMP=/usr/bin/pg_dump
 MYDUMP=/usr/bin/mysqldump
@@ -24,6 +20,11 @@ OVERVIEW="/var/log/backup.log"
 echo "loading config from $CONFIG"
 source $CONFIG
 echo "loaded $CONFIG"
+
+SCRIPTDIR=$BKP
+LOG=$BKP/backup_log.out
+ERR=$BKP/backup_log.err
+SUC=$BKP/backup_log.suc
 
 FUNCTIONS="$SCRIPTDIR/backup_functions.sh"
 LOCALSCR="$SCRIPTDIR/backup_local.sh"
