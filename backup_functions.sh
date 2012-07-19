@@ -232,7 +232,7 @@ function backup_folder_full {
 	local LINK_DEST=$(readlink $LINK)
 	local LINK_DEST_VAL="--link-dest=$LINK_DEST"
 	if [ $LINK_DEST -eq ]; then
-		$LINK_DEST_VAL=""
+		LINK_DEST_VAL=""
 	fi
 
 	execute "$RSYNC -avu $PARAMS $LINK_DEST_VAL --delete --delete-excluded $FOLDER $BKP/$TARGET/" 0
