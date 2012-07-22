@@ -78,10 +78,12 @@ function execute {
 #	the link target
 #
 function recreate_link {
-	local_usage $# 2 "recreate_link <softlink> <target>"
-	local OLD=$1
-	local NEW=$2
-	local_log "recreating current link $OLD"
+	local_usage $# 3 "recreate_link <logfile> <softlink> <target>"
+	local LINKLOG=$1
+	local OLD=$2
+	local NEW=$3
+	local_log "recreating current link $OLD and log to $LINKLOG"
+	echo `date` : updated $NEW >> $LINKLOG
 	execute "rm -f $OLD" 0
 	execute "ln -s $NEW $OLD" 0
 	local_log "$OLD now points to $NEW"
@@ -114,7 +116,7 @@ function backup_database_pg {
 	execute "rm -f ${TARGET}.gz" 0
 	execute "gzip $TARGET" 0
 
-	recreate_link $LINK "$TARGET.gz"
+	recreate_link "$BKP/$SUBFOLDER/$DB.log" $LINK "$TARGET.gz"
 	local_log "$DB backup done"
 }
 
@@ -148,7 +150,7 @@ function backup_database_mysql {
 	execute "gzip $TARGET" 0
 	local_log "dumped to $TARGET"
 
-	recreate_link $LINK "$TARGET.gz"
+	recreate_link "$BKP/$SUBFOLDER/$DB.log" $LINK "$TARGET.gz"
         local_log "$DB backup done"
 }
 
@@ -197,7 +199,7 @@ function backup_folder {
 	execute "rm -rf $TARGET" 0
 	execute "cp -al $BKP/$NAME $TARGET" 0
 
-	recreate_link $LINK $TARGET	
+	recreate_link "$BKP/$NAME.log" $LINK $TARGET	
 	local_log "backup folder $NAME done"
 }
 
@@ -237,7 +239,7 @@ function backup_folder_full {
 
 	execute "$RSYNC -avu $PARAMS $LINK_DEST_VAL --delete --delete-excluded $FOLDER $BKP/$TARGET/" 0
 
-	recreate_link $LINK "$BKP/$TARGET"
+	recreate_link "$BKP/$NAME.log" $LINK "$BKP/$TARGET"
 	local_log "full backup folder $NAME done"
 }
 
@@ -420,6 +422,6 @@ function sync_from_remote {
         execute "rsync -avuz $PARAMS $DEST_DIR --delete --delete-excluded $CONSTR:$MAILS/ $TARGET/" 0
 	execute "cd $PWD" 0
 
-	recreate_link $ACTUAL_LINK $TARGET
+	recreate_link "$BKP/$HOST/$NAME.log" $ACTUAL_LINK $TARGET
 }
 
